@@ -1,6 +1,7 @@
 import numpy as np
 import librosa
-import pdb
+# import pdb
+import wget
 
 local_config = {
             'batch_size': 64, 
@@ -8,6 +9,20 @@ local_config = {
             'phase': 'extract'
             }
 
+def get_audio(audio_link):
+    file_name = audio_link.split('/')[-1]
+    save_location = "/Users/sanjitjain/projects/soundnet_tf/data/"
+    wget.download(audio_link, save_location + file_name + ".mp3")
+    return str(save_location+file_name)
+
+
+def load_from_link(link, config=local_config):
+    audio_path = get_audio(link)
+    audio_path = "/Users/sanjitjain/projects/soundnet_tf/data/tame_impala.mp3"
+    sound_sample, _ = load_audio(audio_path)
+    audio = preprocess(sound_sample, config)
+
+    return audio
 
 def load_from_list(name_list, config=local_config):
     assert len(name_list) == config['batch_size'], \
