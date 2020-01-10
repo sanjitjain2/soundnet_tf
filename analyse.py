@@ -41,3 +41,6 @@ def analyse_sound(path):
  
         features = ef.extract_feat(model, x, local_config)
         print("Shape of feature: ", features.shape)
+
+if __name__ == "__main__":
+    analyse_sound("data/x.mp3")
